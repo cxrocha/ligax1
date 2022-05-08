@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "LigaX1-3",
+    "slug": "LigaX1-3",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
