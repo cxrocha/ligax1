@@ -1,4 +1,4 @@
-package com.ligax13.newarchitecture;
+package com.ligax1.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.EmptyReactNativeConfig;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.ligax13.BuildConfig;
-import com.ligax13.newarchitecture.components.MainComponentsRegistry;
-import com.ligax13.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.ligax1.BuildConfig;
+import com.ligax1.newarchitecture.components.MainComponentsRegistry;
+import com.ligax1.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 

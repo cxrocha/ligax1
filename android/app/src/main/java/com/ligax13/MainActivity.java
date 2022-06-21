@@ -1,4 +1,4 @@
-package com.ligax13;
+package com.ligax1;
 
 import android.os.Build;
 import android.os.Bundle;

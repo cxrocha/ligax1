@@ -1,10 +1,20 @@
 {
   "expo": {
-    "name": "LigaX1-3",
-    "slug": "LigaX1-3",
+    "owner": "cxrocha",
+    "name": "ligax1",
+    "slug": "ligax1",
+    "scheme": "ligax1",
     "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
+    "assetBundlePatterns": [ "**/*" ],
+    "android": { "softwareKeyboardLayoutMode": "pan" },
+    "updates": { "fallbackToCacheTimeout": 0 },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ]
     ]
   }
 }
