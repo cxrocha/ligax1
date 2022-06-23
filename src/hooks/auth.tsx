@@ -9,7 +9,7 @@ import { Alert } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+ 
 import * as AuthSession from 'expo-auth-session'
  //import * as GoogleAuthentication from 'expo-google-app-auth';
 import * as GoogleAuthentication from 'expo-auth-session';
@@ -17,19 +17,31 @@ import * as GoogleAuthentication from 'expo-auth-session';
 
 
 // Link de autorização do Google (comum a todos os projetos)
-const GOOGLE_AUTH_URL = 'https://accounts.google.com/o/oauth2/v2/auth';
+//const GOOGLE_AUTH_URL = 'https://accounts.google.com/o/oauth2/v2/auth';
 
 // Pegar no https://console.cloud.google.com/apis/credentials/oauthclient
-const GOOGLE_CLIENT_ID = '97230275523-grs1m8g58llr5ooarpvl34u10h2k0l4d.apps.googleusercontent.com';
-const EXPO_REDIRECT_URI = 'https://auth.expo.io/@cxrocha/ligax1';
+//const GOOGLE_CLIENT_ID = '97230275523-grs1m8g58llr5ooarpvl34u10h2k0l4d.apps.googleusercontent.com';
+//const EXPO_REDIRECT_URI = 'https://auth.expo.io/@cxrocha/ligax1';
 
-const GOOGLE_RESPONSE_TYPE = 'token';
-const GOOGLE_SCOPE = 'profile email'; 
-const GOOGLE_RESPONSE_ALT = 'json';
+//const GOOGLE_RESPONSE_TYPE = 'token';
+//const GOOGLE_SCOPE = 'profile email'; 
+//const GOOGLE_RESPONSE_ALT = 'json';
 
-const GOOGLE_AUTH_RESPONSE_URL = 'https://www.googleapis.com/oauth2/v1/userinfo';
+//const GOOGLE_AUTH_RESPONSE_URL = 'https://www.googleapis.com/oauth2/v1/userinfo';
 
-const USER_LOCAL_STORAGE_USER_KEY = "@ligax1:users";
+//const USER_LOCAL_STORAGE_USER_KEY = "@ligax1:users";
+
+
+const { GOOGLE_CLIENT_ID } = process.env
+const { EXPO_REDIRECT_URI } = process.env
+const GOOGLE_AUTH_URL = 'https://accounts.google.com/o/oauth2/v2/auth'
+const GOOGLE_RESPONSE_TYPE = 'token'
+const GOOGLE_SCOPE = 'profile email'
+const GOOGLE_RESPONSE_ALT = 'json'
+const GOOGLE_AUTH_RESPONSE_URL = 'https://www.googleapis.com/oauth2/v1/userinfo'
+
+const USER_LOCAL_STORAGE_USER_KEY = '@ligax1:users'
+
 
 type AuthContextData = {
   signIn: (email: string, password: string) => Promise<void>;
@@ -104,7 +116,7 @@ function AuthProvider({ children }: AuthProviderProps) {
       })
       .finally(() => setIsLogging(false));
   }
-
+   
   async function signInWithGoogle() {
     try {
         const AUTH_URL = `${GOOGLE_AUTH_URL}?`;
@@ -112,7 +124,7 @@ function AuthProvider({ children }: AuthProviderProps) {
         const REDIRECT_URI = `&redirect_uri=${EXPO_REDIRECT_URI}`;
         const RESPONSE_TYPE = `&response_type=${GOOGLE_RESPONSE_TYPE}`;
         const SCOPE = `&scope=${encodeURI(GOOGLE_SCOPE)}`;
-
+  
         const authUrl = `${AUTH_URL}${CLIENT_ID}${REDIRECT_URI}${RESPONSE_TYPE}${SCOPE}`;
         console.log("authUrl: ", authUrl);
         const res = (await AuthSession.startAsync({
@@ -126,7 +138,7 @@ function AuthProvider({ children }: AuthProviderProps) {
                 `${GOOGLE_AUTH_RESPONSE_URL}?alt=${GOOGLE_RESPONSE_ALT}&access_token=${params.access_token}`
             );
             const userInfo = await response.json();
-
+   
             const userLogged = {
                 id: userInfo.id,
                 email: userInfo.email,
