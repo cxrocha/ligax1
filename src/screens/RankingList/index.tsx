@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useCallback} from 'react';
-import { FlatList, Alert } from 'react-native';
+import { FlatList, Alert, ActivityIndicator } from 'react-native';
 import { useTheme } from 'styled-components/native';
 import { getBottomSpace} from 'react-native-iphone-x-helper';
 
@@ -17,8 +17,10 @@ import { RankingAthleteProps } from '../../components/RankingAthleteCard'
 import { useAuth } from '../../hooks/auth';
 import { Button } from '../../components/Forms/Button';
 
-import { DefaultBackground } from '../../components/DefaultBackground';
 import { Header } from '../../components/Header';
+
+import { DefaultBackground } from '../../components/DefaultBackground';
+
 
 interface EtapaCardProps {
     id: string,
@@ -61,7 +63,8 @@ export function RankingList(){
       }) as EtapaCardProps[];
       setEtapas(data);   
       setIsLoading(false);
-    });
+      }, (error) => { console.log("Error fechEtapas: ", error); }
+    );
     return () => subscribe();
   }
 
@@ -72,7 +75,7 @@ export function RankingList(){
       .collection('rankings')
       .orderBy('position')
       .where('date','==',etapaSDate)
-      .onSnapshot((querySnapshot => { 
+      .onSnapshot(querySnapshot => { 
         const data = querySnapshot.docs.map(doc => {
           return {
             id: doc.id,
@@ -86,8 +89,8 @@ export function RankingList(){
       }) as RankingAthleteProps[];
       setRankingAthletes(data);
       setIsLoading(false);
-    }),
-    ((error) => console.error(error)));
+      }, (error) => { console.log("Error fechEtapas: ", error); }
+    );
     return () => subscribe();
   }
 
@@ -103,11 +106,18 @@ export function RankingList(){
     fetchRankingAthletes()
   }, [etapaSDate]);
 
+
+/*
   useFocusEffect(
     useCallback(() => {
       fetchRankingAthletes();
     }, [])
   );
+*/
+
+  if (isLoading) {
+    return <ActivityIndicator/>
+  }
  
 return (
   <Container>
@@ -145,6 +155,7 @@ return (
           title='Incluir Ranking'
           onPress = { () => handleInsertRanking(etapaSDate) }/> 
       }
+                    
     </DefaultBackground>
   </Container> )
 }

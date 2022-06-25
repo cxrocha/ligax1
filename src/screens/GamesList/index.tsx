@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, Modal } from 'react-native';
+import { ActivityIndicator, FlatList, Modal } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 
 import { DefaultBackground } from '../../components/DefaultBackground';
@@ -73,6 +73,10 @@ export function GamesList() {
   useEffect(() => {
     fetchMatchList()
   }, [etapaSel]);
+
+  if (isLoading) {
+    return <ActivityIndicator/>;
+  };
 
 return (
 <Container>

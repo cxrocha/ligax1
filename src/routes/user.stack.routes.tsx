@@ -22,6 +22,7 @@ export function UserStackRoutes() {
     <Navigator 
       screenOptions={{ 
         headerShown: false,
+       
         }}>
       <Group>
         <Screen name="UserTabRoutes" component={UserTabRoutes} />

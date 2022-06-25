@@ -5,8 +5,19 @@
     "slug": "ligax1",
     "scheme": "ligax1",
     "version": "1.0.0",
+    "icon": "./src/assets/images/icon.png",
+    "splash": {
+      "image": "./src/assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
     "assetBundlePatterns": [ "**/*" ],
-    "android": { "softwareKeyboardLayoutMode": "pan" },
+    "android": { 
+      "package": "com.ligax1",
+
+      "backgroundColor": "#FFF",
+      "softwareKeyboardLayoutMode": "pan" 
+    },
     "updates": { "fallbackToCacheTimeout": 0 },
     "plugins": [
       [

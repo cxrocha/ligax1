@@ -57,6 +57,7 @@ type AuthContextData = {
 interface UserProps {
   id: string;
   name: string;
+  provider: string;
   email?: string;
   photo?: string;
   locale?: string;
@@ -79,6 +80,7 @@ function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<UserProps|null>({} as UserProps);
   const [userStorageLoading, setUserStorageLoading] = useState(true);
   const [isLogging, setIsLogging] = useState(false);
+  
   async function signIn(email: string, password: string) {
     if (!email || !password) {
       return Alert.alert('Login', 'Informe o e-mail e a senha.');
@@ -97,6 +99,7 @@ function AuthProvider({ children }: AuthProviderProps) {
               const userData = {
                 id: account.user.uid,
                 name,
+                provider: 'firebase',
                 isAdmin
               };
               await AsyncStorage.setItem(USER_LOCAL_STORAGE_USER_KEY, JSON.stringify(userData));
@@ -141,13 +144,14 @@ function AuthProvider({ children }: AuthProviderProps) {
    
             const userLogged = {
                 id: userInfo.id,
-                email: userInfo.email,
                 name: userInfo.given_name,
+                provider: 'google',
+                email: userInfo.email,
                 photo: userInfo.picture,
                 locale: userInfo.locale,
                 verified_email: userInfo.verified_email
             };
-
+            console.log("userLogged: ", userLogged);
             setUser(userLogged);
             await AsyncStorage.setItem(
                 USER_LOCAL_STORAGE_USER_KEY,
@@ -208,7 +212,8 @@ async function loadUserStorage() {
 }
 
   async function signOut() {
-    await auth().signOut();
+    if (user?.provider=="firebase") { await auth().signOut(); };
+    if (user?.provider=="google")   { AuthSession.revokeAsync; };
     await AsyncStorage.removeItem(USER_LOCAL_STORAGE_USER_KEY);
     setUser(null);
   }

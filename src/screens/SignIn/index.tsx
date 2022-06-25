@@ -38,16 +38,27 @@ export function SignIn() {
 
   const theme = useTheme();
 
+// Login de autenticação com o Firebase
+  function handleSignIn() {
+    signIn(email, password);
+    navigation.goBack();
+  }
+
+  function handleForgotPassword() {
+    forgotPassword(email);
+  }
   
+// Login de autenticação com o Google  
   async function handleSignInWithGoogle() {
       setIsLoading(true);
       try {
-          return await signInWithGoogle();
+          await signInWithGoogle();
       } catch (error) {
           console.log(error);
           Alert.alert('Não foi possível conectar a conta Google');
-          setIsLoading(false);
       }
+      setIsLoading(false);
+      navigation.goBack();
   }
 
 /*
@@ -63,14 +74,7 @@ export function SignIn() {
   }
 */
 
-  function handleSignIn() {
-    signIn(email, password);
-    navigation.goBack();
-  }
 
-  function handleForgotPassword() {
-    forgotPassword(email);
-  }
 
   return (
     <Container>
