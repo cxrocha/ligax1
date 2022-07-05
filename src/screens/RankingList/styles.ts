@@ -17,4 +17,3 @@ export const EtapaCards = styled.ScrollView.attrs({
 export const HorizontalContainerFlatList = styled.View`
   height: 40px;
 `
-

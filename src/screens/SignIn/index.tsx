@@ -20,7 +20,6 @@ import Brasao from '../../assets/images/Brasao.png'
 import { BackButton } from '../../controllers/BackButton';
 import { useTheme } from 'styled-components/native';
 import { SignInSocialButton } from '../../components/SignInSocialButton';
-import LogoSvg from '../../assets/logo.svg';
 import GoogleSvg from '../../assets/google.svg';
 import AppleSvg from '../../assets/apple.svg';
 

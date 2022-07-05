@@ -1,17 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import { 
-    Keyboard,
-    Alert,
-    Modal} from 'react-native'
+import { Alert, Modal } from 'react-native'
 
-import * as Yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from 'react-hook-form';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { InputForm } from '../../components/Forms/InputForm';
 import { Button } from '../../components/Forms/Button';
 
-import { TouchableWithoutFeedback, GestureHandlerRootView } from 'react-native-gesture-handler';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import firestore from "@react-native-firebase/firestore";
 
 import { 

@@ -1,17 +1,14 @@
 import React, {useEffect, useState, useCallback} from 'react';
 import { FlatList, Alert, ActivityIndicator } from 'react-native';
-import { useTheme } from 'styled-components/native';
 import { getBottomSpace} from 'react-native-iphone-x-helper';
 
-import {  } from 'react-native-gesture-handler';
 import firestore from '@react-native-firebase/firestore';
-import { useNavigation, useFocusEffect } from '@react-navigation/native';
-
+import { useNavigation } from '@react-navigation/native';
 
 import { EtapaCard } from '../../components/EtapaCard';
 import { RankingAthleteCard } from '../../components/RankingAthleteCard';
 
-import { Container, HorizontalContainerFlatList} from './styles';
+import { Container, ContainerActivityIndicator, HorizontalContainerFlatList} from './styles';
 
 import { RankingAthleteProps } from '../../components/RankingAthleteCard'
 import { useAuth } from '../../hooks/auth';
@@ -20,7 +17,6 @@ import { Button } from '../../components/Forms/Button';
 import { Header } from '../../components/Header';
 
 import { DefaultBackground } from '../../components/DefaultBackground';
-
 
 interface EtapaCardProps {
     id: string,
@@ -36,8 +32,6 @@ export function RankingList(){
   const { user, signOut } = useAuth()
   const [etapas, setEtapas] = useState<EtapaCardProps[]>([]);
   const navigation = useNavigation();
-
-  const { COLORS } = useTheme();
 
   function handleInsertRanking(sDate: string) {
     if (sDate==="") { return Alert.alert("Para incluir ranking, uma etada deve ser selecionada !"); } ;
@@ -94,15 +88,15 @@ export function RankingList(){
     return () => subscribe();
   }
 
-  useEffect(() => {
-    if ((etapaSDate=="") && (etapas.length > 0)) { setEtapaSDate(etapas[0].sDate); };
-  }, [etapas]);
-
-  useEffect(() => {
+ useEffect(() => {
     fetchEtapas();
   }, []);
 
-  useEffect(() => {
+//  useEffect(() => {
+  if ((etapaSDate=="") && (etapas.length > 0)) { setEtapaSDate(etapas[0].sDate); };
+  //  }, [etapas]);
+  
+    useEffect(() => {
     fetchRankingAthletes()
   }, [etapaSDate]);
 
@@ -115,10 +109,6 @@ export function RankingList(){
   );
 */
 
-  if (isLoading) {
-    return <ActivityIndicator/>
-  }
- 
 return (
   <Container>
     <DefaultBackground>
@@ -138,17 +128,20 @@ return (
             contentContainerStyle={{ alignItems: 'center' }}
           />
         </HorizontalContainerFlatList>
-        <FlatList
-            data={rankingAthletes}
-            renderItem={({ item }) => 
-                <RankingAthleteCard 
-                    data={item} 
-                />}
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle = {{
-                paddingBottom: getBottomSpace(),
-            }}
-        />
+        { isLoading 
+          ? <ActivityIndicator size="large" style={{paddingTop:"30%"}}/>
+          : <FlatList
+                data={rankingAthletes}
+                renderItem={({ item }) => 
+                    <RankingAthleteCard 
+                        data={item} 
+                    />}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle = {{
+                    paddingBottom: getBottomSpace(),
+                }}
+            />
+        }    
       { 
         user?.isAdmin && 
         <Button 
@@ -157,5 +150,6 @@ return (
       }
                     
     </DefaultBackground>
-  </Container> )
+  </Container> 
+  )
 }

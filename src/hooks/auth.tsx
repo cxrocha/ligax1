@@ -33,7 +33,7 @@ import * as GoogleAuthentication from 'expo-auth-session';
 
 
 const { GOOGLE_CLIENT_ID } = process.env
-const { EXPO_REDIRECT_URI } = process.env
+const EXPO_REDIRECT_URI = AuthSession.makeRedirectUri({ useProxy: true })
 const GOOGLE_AUTH_URL = 'https://accounts.google.com/o/oauth2/v2/auth'
 const GOOGLE_RESPONSE_TYPE = 'token'
 const GOOGLE_SCOPE = 'profile email'

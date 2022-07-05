@@ -74,51 +74,52 @@ export function GamesList() {
     fetchMatchList()
   }, [etapaSel]);
 
-  if (isLoading) {
-    return <ActivityIndicator/>;
-  };
-
 return (
 <Container>
   <DefaultBackground>
   <Header title="Lista de Jogos"/>
-  <EtapaSelectButton 
-    title={etapaSel.title}
-    onPress={handleOpenSelectEtapaModal}
-  />
+  { isLoading 
+          ? <ActivityIndicator size="large" style={{paddingTop:"30%"}}/>
+          : <>
+              <EtapaSelectButton 
+                title={etapaSel.title}
+                onPress={handleOpenSelectEtapaModal}
+              />
 
-  <FlatList
-    data={matchList}
-    renderItem={({ item }) => 
-      <GameCard options = {true}
-        data = {item}
-        onPressSel  ={() => handleCallGame({type: "View", ...item})}
-        onPressDel  ={() => handleCallGame( {type: "Del" , ...item})}
-        onPressEdit ={() => handleCallGame({type: "Edit", ...item})}
-      />
-    }
-    showsVerticalScrollIndicator={false}
-    contentContainerStyle = {{
-        paddingBottom: getBottomSpace(),
-    }}
-  />
+              <FlatList
+                data={matchList}
+                renderItem={({ item }) => 
+                  <GameCard options = {true}
+                    data = {item}
+                    onPressSel  ={() => handleCallGame({type: "View", ...item})}
+                    onPressDel  ={() => handleCallGame( {type: "Del" , ...item})}
+                    onPressEdit ={() => handleCallGame({type: "Edit", ...item})}
+                  />
+                }
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle = {{
+                    paddingBottom: getBottomSpace(),
+                }}
+              />
 
-  <Button 
-    style={{marginTop: 10}}
-    title='Incluir Jogo'
-    onPress={() => handleCallGameNew("Add")}
-  />
+              <Button 
+                style={{marginTop: 10}}
+                title='Incluir Jogo'
+                onPress={() => handleCallGameNew("Add")}
+              />
 
-  <Modal 
-    visible={etapaModalOpen} 
-    transparent={true}
-    animationType="slide">
-      <EtapaSelect 
-          etapa = {etapaSel}
-          setEtapa = {setEtapaSel}
-          closeSelectEtapa = {handleCloseSelectEtapaModal}
-      />
-  </Modal>
+              <Modal 
+                visible={etapaModalOpen} 
+                transparent={true}
+                animationType="slide">
+                  <EtapaSelect 
+                      etapa = {etapaSel}
+                      setEtapa = {setEtapaSel}
+                      closeSelectEtapa = {handleCloseSelectEtapaModal}
+                  />
+              </Modal>
+  </>
+  }
   </DefaultBackground>
 </Container>
 )

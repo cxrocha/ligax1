@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { FlatList, Alert } from 'react-native';
+import { FlatList, Alert, ActivityIndicator } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Search } from '../../components/Search';
@@ -91,28 +91,33 @@ export function EtapaSelect({
             onClear={handleSearchClear}
           />
         </Header>        
-        <MenuHeader>
-          <Title>Etapas</Title>
-          <MenuItemsNumber>{etapas.length} etapas</MenuItemsNumber>
-        </MenuHeader>
-        <FlatList
-          data={etapas}
-          keyExtractor={item => item.sDate}
-          renderItem={({ item }) => (
-            <EtapaCard
-              title = {item.title}
-              isActive = {true}
-              onPress={() => handleEtapaSelect({sDate:item.sDate, title: item.title, isOpen:item.isOpen})} 
-            />
-          )}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{
-            paddingTop: 5,
-            paddingBottom: 125,
-            marginHorizontal: 24,
-            alignSelf: 'center'
-          }}
-        />
+        { isLoading 
+            ? <ActivityIndicator size="large" style={{paddingTop:"30%"}}/>
+            : <>
+                <MenuHeader>
+                  <Title>Etapas</Title>
+                  <MenuItemsNumber>{etapas.length} etapas</MenuItemsNumber>
+                </MenuHeader>
+                <FlatList
+                  data={etapas}
+                  keyExtractor={item => item.sDate}
+                  renderItem={({ item }) => (
+                    <EtapaCard
+                      title = {item.title}
+                      isActive = {true}
+                      onPress={() => handleEtapaSelect({sDate:item.sDate, title: item.title, isOpen:item.isOpen})} 
+                    />
+                  )}
+                  showsVerticalScrollIndicator={false}
+                  contentContainerStyle={{
+                    paddingTop: 5,
+                    paddingBottom: 125,
+                    marginHorizontal: 24,
+                    alignSelf: 'center'
+                  }}
+                />
+              </>
+        }  
         </DefaultBackground>
       </Container>
     </GestureHandlerRootView>

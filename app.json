@@ -14,9 +14,9 @@
     "assetBundlePatterns": [ "**/*" ],
     "android": { 
       "package": "com.ligax1",
-
       "backgroundColor": "#FFF",
-      "softwareKeyboardLayoutMode": "pan" 
+      "softwareKeyboardLayoutMode": "pan",
+      "permissions": []
     },
     "updates": { "fallbackToCacheTimeout": 0 },
     "plugins": [
