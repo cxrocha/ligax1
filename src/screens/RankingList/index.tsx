@@ -27,7 +27,8 @@ interface EtapaCardProps {
 export function RankingList(){
 
   const[etapaSDate, setEtapaSDate] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingEtapas, setIsLoadingEtapas] = useState(true);
+  const [isLoadingAthletes, setIsLoadingAthletes] = useState(true);
   const [rankingAthletes, setRankingAthletes] = useState<RankingAthleteProps[]>([]);
   const { user, signOut } = useAuth()
   const [etapas, setEtapas] = useState<EtapaCardProps[]>([]);
@@ -43,7 +44,7 @@ export function RankingList(){
   };
 
   async function fetchEtapas() {
-    setIsLoading(true);
+    setIsLoadingEtapas(true);
     setEtapas([]);
     const subscribe = await firestore()
     .collection('etapa')
@@ -55,15 +56,16 @@ export function RankingList(){
           ...doc.data(),
         }
       }) as EtapaCardProps[];
-      setEtapas(data);   
-      setIsLoading(false);
+      setEtapas(data);  
+      setEtapaSDate(data[0].sDate);
+      setIsLoadingEtapas(false);
       }, (error) => { console.log("Error fechEtapas: ", error); }
     );
     return () => subscribe();
   }
 
   async function fetchRankingAthletes() {  
-    setIsLoading(true);
+    setIsLoadingAthletes(true);
     setRankingAthletes([]);
     const subscribe = await firestore()
       .collection('rankings')
@@ -82,32 +84,19 @@ export function RankingList(){
           }
       }) as RankingAthleteProps[];
       setRankingAthletes(data);
-      setIsLoading(false);
+      setIsLoadingAthletes(false);
       }, (error) => { console.log("Error fechEtapas: ", error); }
     );
     return () => subscribe();
   }
 
- useEffect(() => {
+  useEffect(() => {
     fetchEtapas();
   }, []);
 
-//  useEffect(() => {
-  if ((etapaSDate=="") && (etapas.length > 0)) { setEtapaSDate(etapas[0].sDate); };
-  //  }, [etapas]);
-  
-    useEffect(() => {
-    fetchRankingAthletes()
-  }, [etapaSDate]);
-
-
-/*
-  useFocusEffect(
-    useCallback(() => {
-      fetchRankingAthletes();
-    }, [])
-  );
-*/
+  useEffect(() => {
+      if (!isLoadingEtapas) { fetchRankingAthletes(); }
+    }, [isLoadingEtapas,etapaSDate]);
 
 return (
   <Container>
@@ -128,7 +117,7 @@ return (
             contentContainerStyle={{ alignItems: 'center' }}
           />
         </HorizontalContainerFlatList>
-        { isLoading 
+        { (isLoadingEtapas || isLoadingAthletes)
           ? <ActivityIndicator size="large" style={{paddingTop:"30%"}}/>
           : <FlatList
                 data={rankingAthletes}

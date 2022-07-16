@@ -28,7 +28,7 @@ export default function App() {
   const { userStorageLoading } = useAuth();
   
   if (!fontsLoad || userStorageLoading) {
-    SplashScreen.preventAutoHideAsync()
+      SplashScreen.preventAutoHideAsync()
     .then(result => console.log(`SplashScreen.preventAutoHideAsync() succeeded: ${result}`))
     .catch(console.warn); // it's good to explicitly catch and inspect any error
   }

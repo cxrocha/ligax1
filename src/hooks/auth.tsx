@@ -21,7 +21,7 @@ import * as GoogleAuthentication from 'expo-auth-session';
 
 // Pegar no https://console.cloud.google.com/apis/credentials/oauthclient
 //const GOOGLE_CLIENT_ID = '97230275523-grs1m8g58llr5ooarpvl34u10h2k0l4d.apps.googleusercontent.com';
-//const EXPO_REDIRECT_URI = 'https://auth.expo.io/@cxrocha/ligax1';
+const EXPO_REDIRECT_URI = 'https://auth.expo.io/@cxrocha/ligax1';
 
 //const GOOGLE_RESPONSE_TYPE = 'token';
 //const GOOGLE_SCOPE = 'profile email'; 
@@ -33,7 +33,7 @@ import * as GoogleAuthentication from 'expo-auth-session';
 
 
 const { GOOGLE_CLIENT_ID } = process.env
-const EXPO_REDIRECT_URI = AuthSession.makeRedirectUri({ useProxy: true })
+//const EXPO_REDIRECT_URI = AuthSession.makeRedirectUri({ useProxy: true })
 const GOOGLE_AUTH_URL = 'https://accounts.google.com/o/oauth2/v2/auth'
 const GOOGLE_RESPONSE_TYPE = 'token'
 const GOOGLE_SCOPE = 'profile email'

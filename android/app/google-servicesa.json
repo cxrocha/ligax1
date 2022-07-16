@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "179126139991",
+    "project_id": "ligax1-592be",
+    "storage_bucket": "ligax1-592be.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:179126139991:android:3a8be12019a7d39e43b712",
+        "android_client_info": {
+          "package_name": "com.ligax1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "179126139991-hkdrloc1sr4erov4oadend9qc36snopb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ligax1",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "179126139991-12g84tuq2nr7idgjd7vc2osj3qbm94u2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1jcALzi7BEsWtog78Pqo8qYQpWodvkl8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "179126139991-12g84tuq2nr7idgjd7vc2osj3qbm94u2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
