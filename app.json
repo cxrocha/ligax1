@@ -1,25 +1,31 @@
 {
   "expo": {
-    "owner": "cxrocha",
     "name": "ligax1",
-    "slug": "ligax1",
-    "scheme": "ligax1",
-    "version": "1.0.0",
     "icon": "./src/assets/images/icon.png",
+    "version": "1.0.0",
+    "slug": "ligax1",
+    "owner": "cxrocha",
+    "ios": {
+      "bundleIdentifier": "com.cxrocha.ligax1",
+      "buildNumber": "1.0.0"
+    },
+    "android": { 
+          "package": "com.ligax1",
+          "googleServicesFile" : "./google-services.json",
+          "backgroundColor": "#FFF",
+          "softwareKeyboardLayoutMode": "pan"
+    },
+
+    "scheme": "ligax1",
     "splash": {
-      "image": "./src/assets/images/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+          "image": "./src/assets/images/splash.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": [ "**/*" ],
-    "android": { 
-      "package": "com.ligax1",
-      "backgroundColor": "#FFF",
-      "softwareKeyboardLayoutMode": "pan",
-      "permissions": []
-    },
     "updates": { "fallbackToCacheTimeout": 0 },
     "plugins": [
+        "@react-native-firebase/app"
     ]
   }
 }

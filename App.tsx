@@ -15,27 +15,23 @@ import theme from "./src/theme";
 import { Routes } from './src/routes';
 import { AuthProvider, useAuth } from './src/hooks/auth';
 
+import AppLoading from 'expo-app-loading';
+
 export default function App() {
   const  [fontsLoad] = useFonts({
-    Poppins_400Regular,
+    DMSerifDisplay_400Regular,
     Poppins_500Medium, 
+    Poppins_400Regular,
     Poppins_700Bold,
     Yellowtail_400Regular,
-    DMSerifDisplay_400Regular,
     DMSans_400Regular
   });
 
   const { userStorageLoading } = useAuth();
   
   if (!fontsLoad || userStorageLoading) {
-      SplashScreen.preventAutoHideAsync()
-    .then(result => console.log(`SplashScreen.preventAutoHideAsync() succeeded: ${result}`))
-    .catch(console.warn); // it's good to explicitly catch and inspect any error
-  }
-  else {
-    SplashScreen.hideAsync();
-    console.log(`SplashScreen.hideAsync`);
-  }
+    return <AppLoading/>;
+  } else {
 
   return (
       <GestureHandlerRootView style={{ flex: 1 }}>
@@ -48,3 +44,4 @@ export default function App() {
       </GestureHandlerRootView>
   );
 }     
+}

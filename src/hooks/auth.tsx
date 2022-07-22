@@ -15,12 +15,12 @@ import * as AuthSession from 'expo-auth-session'
 import * as GoogleAuthentication from 'expo-auth-session';
 //import * as AppleAuthentication from 'expo-apple-authentication';
 
-
 // Link de autorização do Google (comum a todos os projetos)
 //const GOOGLE_AUTH_URL = 'https://accounts.google.com/o/oauth2/v2/auth';
 
 // Pegar no https://console.cloud.google.com/apis/credentials/oauthclient
-//const GOOGLE_CLIENT_ID = '97230275523-grs1m8g58llr5ooarpvl34u10h2k0l4d.apps.googleusercontent.com';
+const GOOGLE_CLIENT_ID = '179126139991-s072jh24qu2piqh325pu9rmcg9jiv6av.apps.googleusercontent.com';
+
 const EXPO_REDIRECT_URI = 'https://auth.expo.io/@cxrocha/ligax1';
 
 //const GOOGLE_RESPONSE_TYPE = 'token';
@@ -28,11 +28,10 @@ const EXPO_REDIRECT_URI = 'https://auth.expo.io/@cxrocha/ligax1';
 //const GOOGLE_RESPONSE_ALT = 'json';
 
 //const GOOGLE_AUTH_RESPONSE_URL = 'https://www.googleapis.com/oauth2/v1/userinfo';
-
+  
 //const USER_LOCAL_STORAGE_USER_KEY = "@ligax1:users";
 
-
-const { GOOGLE_CLIENT_ID } = process.env
+//const { GOOGLE_CLIENT_ID } = process.env
 //const EXPO_REDIRECT_URI = AuthSession.makeRedirectUri({ useProxy: true })
 const GOOGLE_AUTH_URL = 'https://accounts.google.com/o/oauth2/v2/auth'
 const GOOGLE_RESPONSE_TYPE = 'token'
@@ -110,7 +109,7 @@ function AuthProvider({ children }: AuthProviderProps) {
       })
       .catch(error => {
         const { code } = error;
-
+        console.log("Erro de Login: ", error);
         if (code === 'auth/user-not-found' || code === 'auth/wrong-password') {
           return Alert.alert('Login', 'E-mail e/ou senha inválida.');
         } else {
