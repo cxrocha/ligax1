@@ -3,11 +3,6 @@ import { KeyboardAvoidingView, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from 'styled-components/native';
 import { MaterialIcons } from '@expo/vector-icons';
-
-import registerAnimation from '../../assets/animations/register.json';
-
-import { Lottie } from '../../components/Animations/Lottie';
-
 import { AccountForm } from '../../components/Forms/AccountForm';
 import { Container, Content, SubTitle, BackButton, BackText } from './styles';
 import { DefaultBackground } from '../../components/DefaultBackground';
@@ -21,7 +16,6 @@ export function UserInsert() {
       <DefaultBackground>
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
           <Content>
-            <Lottie source={registerAnimation} />
 
             <SubTitle>Conte conosco, estamos aqui para ajudar.</SubTitle>
             <AccountForm />

@@ -26,7 +26,7 @@ export function InscriptionCard() {
   const { user } = useAuth();
   const navigation = useNavigation();
   const route = useRoute();
-  console.log(user);
+//  console.log(user);
 
 
   function handleOpenSelectEtapaModal() {

@@ -103,7 +103,7 @@ export function SignIn() {
 
               <Button
                 title="Entrar"
-                type="primary"
+                type="cancel"
                 onPress={handleSignIn}
                 isLoading={isLogging}
               />
@@ -111,7 +111,6 @@ export function SignIn() {
               <Footer>
                 <FooterButton title="Criar conta" icon="person-add" onPress={() => navigation.navigate('userRegister')} />
                 <FooterButton title="Esqueci senha" icon="email" onPress={handleForgotPassword} />
-                
               </Footer>
               <FooterWrapper>
                     <SignInSocialButton

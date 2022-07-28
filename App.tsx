@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { DMSerifDisplay_400Regular} from '@expo-google-fonts/dm-serif-display';
@@ -14,10 +14,13 @@ import theme from "./src/theme";
 
 import { Routes } from './src/routes';
 import { AuthProvider, useAuth } from './src/hooks/auth';
+import { View } from 'react-native';
 
-import AppLoading from 'expo-app-loading';
 
 export default function App() {
+
+  SplashScreen.preventAutoHideAsync();
+
   const  [fontsLoad] = useFonts({
     DMSerifDisplay_400Regular,
     Poppins_500Medium, 
@@ -26,22 +29,22 @@ export default function App() {
     Yellowtail_400Regular,
     DMSans_400Regular
   });
-
   const { userStorageLoading } = useAuth();
-  
-  if (!fontsLoad || userStorageLoading) {
-    return <AppLoading/>;
-  } else {
+
+  console.log('fontsLoad: ', fontsLoad);
+  console.log('userStorageLoading: ', userStorageLoading);
+
+  if (fontsLoad) { SplashScreen.hideAsync(); }
 
   return (
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <ThemeProvider theme={theme}>
-          <StatusBar style="light" translucent backgroundColor="#BE0303" />
-            <AuthProvider>
-                <Routes />
-            </AuthProvider>
-        </ThemeProvider>
-      </GestureHandlerRootView>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <ThemeProvider theme={theme}>
+        <StatusBar style="light" translucent backgroundColor="#BE0303" />
+          <AuthProvider>
+              <Routes />
+          </AuthProvider>
+      </ThemeProvider>
+    </GestureHandlerRootView>
   );
-}     
+
 }

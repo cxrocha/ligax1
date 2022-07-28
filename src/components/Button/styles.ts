@@ -9,20 +9,16 @@ type ContainerProps = {
 }
 
 export const Container = styled(RectButton) <ContainerProps>`
-  flex: 1;
-  max-height: 56px;
-  min-height: 56px;
+  height: ${RFValue(56)}px;
   width: ${RFValue(150)}px;
   border-radius: 12px;
   justify-content: center;
   align-items: center;
-  
   background-color: ${({ theme, type }) => type === 'confirm' ? theme.COLORS.SUCCESS_900 : theme.COLORS.PRIMARY_800};
 `;
 
 export const Title = styled.Text`
   font-size: 14px;
-
   ${({ theme }) => css`
     color: ${theme.COLORS.TITLE};
     font-family: ${theme.FONTS.TEXT};

@@ -14,19 +14,17 @@ export const BackBar = styled.View`
   height: ${RFValue(40)}px;
 `;
 
-export const Content = styled.ScrollView.attrs({
-  showsVerticalScrollIndicator: false,
-  contentContainerStyle: {
-    paddingBottom: getBottomSpace() + 48
-  },
-})`
+export const Content = styled.View`
   width: 100%;
   padding: 0 32px;
+  justify-items: center;
+  align-items: center;
 `;
 
 export const Title = styled.Text`
+  align-self: flex-start;
   font-size: 32px;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 
   ${({ theme }) => css`
     font-family: ${theme.FONTS.TITLE};
@@ -37,11 +35,11 @@ export const Title = styled.Text`
 export const Brand = styled.Image.attrs({
   resizeMode: 'contain'
 })`
-  height: ${RFValue(200)}px;
-  width: ${RFValue(250)}px;
+  height: ${RFValue(150)}px;
+  width: ${RFValue(200)}px;
   align-self: center;
-  margin-top: ${RFValue(30)}px;;
-  margin-bottom: ${RFValue(30)}px;;
+  margin-top: ${RFValue(12)}px;;
+  margin-bottom: ${RFValue(12)}px;;
 `;
 
 export const ForgotPasswordButton = styled.TouchableOpacity`
@@ -51,7 +49,6 @@ export const ForgotPasswordButton = styled.TouchableOpacity`
 
 export const ForgotPasswordLabel = styled.Text`
   font-size: 14px;
-
   ${({ theme }) => css`
     font-family: ${theme.FONTS.TEXT};
     color: ${theme.COLORS.TITLE};
@@ -59,10 +56,10 @@ export const ForgotPasswordLabel = styled.Text`
 `;
 
 export const Footer = styled.View`    
+  width: 100%;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center; 
-  margin-top: 50px; 
+  margin-top: 10px; 
 `;
 
 export const FooterWrapper = styled.View`

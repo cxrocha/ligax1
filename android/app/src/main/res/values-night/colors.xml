@@ -1,5 +1,5 @@
 <resources>
   <!-- Below line is handled by '@expo/configure-splash-screen' command and it's discouraged to modify it manually -->
-  <string name="expo_splash_screen_resize_mode" translatable="false">native</string>
-  <string name="app_name">ligax1</string>
+  <color name="splashscreen_background">#FF0000</color>
+  <color name="splashscreen_statusbar_color">#FF0000</color>
 </resources>

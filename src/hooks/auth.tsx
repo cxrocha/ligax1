@@ -11,28 +11,15 @@ import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
  
 import * as AuthSession from 'expo-auth-session'
- //import * as GoogleAuthentication from 'expo-google-app-auth';
 import * as GoogleAuthentication from 'expo-auth-session';
-//import * as AppleAuthentication from 'expo-apple-authentication';
-
-// Link de autorização do Google (comum a todos os projetos)
-//const GOOGLE_AUTH_URL = 'https://accounts.google.com/o/oauth2/v2/auth';
 
 // Pegar no https://console.cloud.google.com/apis/credentials/oauthclient
-const GOOGLE_CLIENT_ID = '179126139991-s072jh24qu2piqh325pu9rmcg9jiv6av.apps.googleusercontent.com';
+//const GOOGLE_CLIENT_ID = '179126139991-s072jh24qu2piqh325pu9rmcg9jiv6av.apps.googleusercontent.com';
 
 const EXPO_REDIRECT_URI = 'https://auth.expo.io/@cxrocha/ligax1';
-
-//const GOOGLE_RESPONSE_TYPE = 'token';
-//const GOOGLE_SCOPE = 'profile email'; 
-//const GOOGLE_RESPONSE_ALT = 'json';
-
-//const GOOGLE_AUTH_RESPONSE_URL = 'https://www.googleapis.com/oauth2/v1/userinfo';
-  
-//const USER_LOCAL_STORAGE_USER_KEY = "@ligax1:users";
-
-//const { GOOGLE_CLIENT_ID } = process.env
 //const EXPO_REDIRECT_URI = AuthSession.makeRedirectUri({ useProxy: true })
+
+const { GOOGLE_CLIENT_ID } = process.env;
 const GOOGLE_AUTH_URL = 'https://accounts.google.com/o/oauth2/v2/auth'
 const GOOGLE_RESPONSE_TYPE = 'token'
 const GOOGLE_SCOPE = 'profile email'
@@ -109,7 +96,7 @@ function AuthProvider({ children }: AuthProviderProps) {
       })
       .catch(error => {
         const { code } = error;
-        console.log("Erro de Login: ", error);
+//        console.log("Erro de Login: ", error);
         if (code === 'auth/user-not-found' || code === 'auth/wrong-password') {
           return Alert.alert('Login', 'E-mail e/ou senha inválida.');
         } else {
@@ -128,13 +115,12 @@ function AuthProvider({ children }: AuthProviderProps) {
         const SCOPE = `&scope=${encodeURI(GOOGLE_SCOPE)}`;
   
         const authUrl = `${AUTH_URL}${CLIENT_ID}${REDIRECT_URI}${RESPONSE_TYPE}${SCOPE}`;
-        console.log("authUrl: ", authUrl);
+//        console.log("authUrl: ", authUrl);
         const res = (await AuthSession.startAsync({
             authUrl
         })) as AuthorizationResponse;
-        console.log("res: ", res);
+//        console.log("res: ", res);
         const { params, type} = res;
-        console.log("params: ", params, "\n  type: ", type);
         if (type === 'success') {
             const response = await fetch(
                 `${GOOGLE_AUTH_RESPONSE_URL}?alt=${GOOGLE_RESPONSE_ALT}&access_token=${params.access_token}`
@@ -150,7 +136,7 @@ function AuthProvider({ children }: AuthProviderProps) {
                 locale: userInfo.locale,
                 verified_email: userInfo.verified_email
             };
-            console.log("userLogged: ", userLogged);
+//            console.log("userLogged: ", userLogged);
             setUser(userLogged);
             await AsyncStorage.setItem(
                 USER_LOCAL_STORAGE_USER_KEY,
@@ -259,7 +245,6 @@ async function loadUserStorage() {
 
 function useAuth() {
   const context = useContext(AuthContext);
-
   return context;
 }
 
