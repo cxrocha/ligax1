@@ -12,7 +12,7 @@ type NotificationProps = {
 
 export const Container = styled.View`
   width: 80px;
-  flex-direction: row;
+//  flex-direction: row;
   align-items: center;
 `;
 
@@ -21,7 +21,7 @@ export const Icon = styled(Feather)`
 `;
 
 export const Title = styled.Text<TitleProps>`
-  font-size: 18px;
+  font-size: 14px;
 
   ${({ theme, color }) => css`
     font-family: ${theme.FONTS.TITLE};

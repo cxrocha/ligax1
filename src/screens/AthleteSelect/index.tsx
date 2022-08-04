@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { FlatList, Alert } from 'react-native';
+import { FlatList, Alert, ImageBackground } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Search } from '../../components/Search';
@@ -12,11 +12,12 @@ import {
   MenuHeader,
   MenuItemsNumber,
 } from './styles';
-import { DefaultBackground } from '../../components/DefaultBackground';
 import { BackButton } from '../../controllers/BackButton';
-import { Button } from '../../components/Forms/Button';
 import { AthleteProps } from '../../@types/interface'
 import { AthleteInsertNavigationProps } from '../../@types/navigation'
+
+import backgroundImage from '../../assets/images/background.png';
+import { ButtonConfirm } from '../../components/ButtonConfirm';
 
 interface Props {
   athlete: AthleteProps;
@@ -79,8 +80,8 @@ export function AthleteSelect({
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Container>
-        <DefaultBackground>
-          <HeaderBar>
+      <ImageBackground source={backgroundImage} resizeMode='stretch' style={{flex:1}}>          
+        <HeaderBar>
             <BackButton title="" icon="arrow-back" onPress={() => closeSelectAthlete()} />
             <Search
               onChangeText={setSearch}
@@ -113,11 +114,11 @@ export function AthleteSelect({
             marginHorizontal: 24
           }}
         />
-        <Button 
+        <ButtonConfirm
           title='Incluir Atleta'
           onPress={() => handleCallAthleteRegister({type: "Add", id:"", name:"", nickName:"", eMail:"", bornDate:"", gendler:"M"})}
         />
-        </DefaultBackground>
+        </ImageBackground>
       </Container>
     </GestureHandlerRootView>
   )

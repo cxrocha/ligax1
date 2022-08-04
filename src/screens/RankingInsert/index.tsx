@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Modal, TouchableOpacity, Alert, FlatList } from 'react-native';
+import { Modal, TouchableOpacity, Alert, FlatList, ImageBackground } from 'react-native';
 import { useTheme } from 'styled-components/native';
 import firestore from '@react-native-firebase/firestore';
 import { useRoute, useNavigation, useFocusEffect } from '@react-navigation/native';
@@ -7,24 +7,30 @@ import { RankingInsertNavigationProps } from '../../@types/navigation';
 import { AthleteSelectButton } from '../../components/Forms/AthleteSelectButton';
 import { AthleteSelect } from '../../screens/AthleteSelect';
 
+import backgroundImage from '../../assets/images/background.png';
+
 import {
   Container,
   Title,
   ButtonContainer,
+  BackBar,
 } from './styles';
-import { DefaultBackground } from '../../components/DefaultBackground';
 import { useAuth } from '../../hooks/auth';
 import { InputRankingNumber } from '../../components/InputRankingNumber';
 import { Header } from '../../components/Header';
-import { Button } from '../../components/Button';
+import { ButtonConfirm } from '../../components/ButtonConfirm';
+import { BackButton } from '../../controllers/BackButton';
 
 export function RankingInsert() {
   const route = useRoute();
   const {COLORS} = useTheme();
   const { sDate } = route.params as RankingInsertNavigationProps;
 
+
+
+
   const [ rankingNumber, setRankingNumber ] = useState("");
-  const [athlete, setAthlete] = useState({ key: 'id', name: 'Nome do Athleta', nickName: 'Apelido', gendler: 'M' });
+  const [athlete, setAthlete] = useState({ id: 'id', name: 'Nome do Athleta', nickName: 'Apelido', eMail: 'E-mail', bornDate:'Data Nasc', gendler: 'M' });
   const [sendingRanking, setSendingRanking] = useState(false);
   const[athleteModalOpen, setAthleteModalOpen] = useState(false);
 
@@ -44,7 +50,7 @@ export function RankingInsert() {
     firestore()
       .collection('rankings')
       .add({
-        athlete: {athleteId :athlete.key, name: athlete.name, nickName: athlete.nickName, gendler: athlete.gendler},
+        athlete: {athleteId :athlete.id, name: athlete.name, nickName: athlete.nickName, eMail: athlete.eMail, bornDate: athlete.bornDate, gendler: athlete.gendler},        
         date: sDate,
         position: rankingNumber
       })
@@ -54,7 +60,7 @@ export function RankingInsert() {
         setSendingRanking(false);
       });}
 
-  function handleCancel() {
+  function handleGoBack() {
     navigation.goBack();
   }
 
@@ -68,7 +74,10 @@ function handleOpenSelectAthleteModal(){
 
   return (
     <Container>
-      <DefaultBackground>
+      <ImageBackground source={backgroundImage} resizeMode='stretch' style={{flex:1}}>          
+        <BackBar>
+          <BackButton title="Voltar" icon="arrow-back" onPress={() => handleGoBack()} />
+        </BackBar>        
         <Header title="Ranking Register"/>
         <AthleteSelectButton 
           athlete={athlete}
@@ -81,14 +90,8 @@ function handleOpenSelectAthleteModal(){
         />
 
         <ButtonContainer>
-          <Button
-            title="Cancelar"
-            type="cancel"
-            onPress={handleCancel}
-          />
-          <Button
+          <ButtonConfirm
             title="Registrar Ranking"
-            type="confirm"
             onPress={handleAdd}
           />
         </ButtonContainer>
@@ -103,7 +106,7 @@ function handleOpenSelectAthleteModal(){
                 closeSelectAthlete = {handleCloseSelectAthleteModal}
             />
         </Modal>
-      </DefaultBackground>
+      </ImageBackground>
     </Container>
   )
 }

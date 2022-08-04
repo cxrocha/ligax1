@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useCallback} from 'react';
-import { FlatList, Alert, ActivityIndicator } from 'react-native';
+import { FlatList, Alert, ActivityIndicator, ImageBackground } from 'react-native';
 import { getBottomSpace} from 'react-native-iphone-x-helper';
 
 import firestore from '@react-native-firebase/firestore';
@@ -8,15 +8,16 @@ import { useNavigation } from '@react-navigation/native';
 import { EtapaCard } from '../../components/EtapaCard';
 import { RankingAthleteCard } from '../../components/RankingAthleteCard';
 
-import { Container, ContainerActivityIndicator, HorizontalContainerFlatList} from './styles';
+import { Container, Footer, HorizontalContainerFlatList} from './styles';
 
 import { RankingAthleteProps } from '../../components/RankingAthleteCard'
 import { useAuth } from '../../hooks/auth';
-import { Button } from '../../components/Forms/Button';
 
 import { Header } from '../../components/Header';
 
-import { DefaultBackground } from '../../components/DefaultBackground';
+import backgroundImage from '../../assets/images/background.png';
+import { ButtonConfirm } from '../../components/ButtonConfirm';
+
 
 interface EtapaCardProps {
     id: string,
@@ -98,9 +99,10 @@ export function RankingList(){
       if (!isLoadingEtapas) { fetchRankingAthletes(); }
     }, [isLoadingEtapas,etapaSDate]);
 
+console.log('user: ', user)    ;
 return (
   <Container>
-    <DefaultBackground>
+    <ImageBackground source={backgroundImage} resizeMode='stretch' style={{flex:1}}>
         <Header title="Lista do Ranking"/>
         <HorizontalContainerFlatList>
           <FlatList
@@ -133,12 +135,15 @@ return (
         }    
       { 
         user?.isAdmin && 
-        <Button 
-          title='Incluir Ranking'
-          onPress = { () => handleInsertRanking(etapaSDate) }/> 
+        <Footer>
+          <ButtonConfirm
+            title='Incluir Ranking'
+            onPress = { () => handleInsertRanking(etapaSDate)
+            }/> 
+        </Footer>
       }
                     
-    </DefaultBackground>
+    </ImageBackground>
   </Container> 
   )
 }

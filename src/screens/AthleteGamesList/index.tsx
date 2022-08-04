@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, Modal } from 'react-native';
+import { ActivityIndicator, FlatList, ImageBackground, Modal } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 
-import { DefaultBackground } from '../../components/DefaultBackground';
 import { Header } from '../../components/Header';
 import { GameCard } from '../../components/GameCard';
 import { GameProps, AthleteProps } from '../../../src/@types/interface';
@@ -13,6 +12,8 @@ import { useNavigation } from '@react-navigation/native';
 import { GameInsertNavigationProps } from '../../@types/navigation';
 import { AthleteSelectButton } from '../../components/Forms/AthleteSelectButton';
 import { AthleteSelect } from '../AthleteSelect';
+
+import backgroundImage from '../../assets/images/background.png';
 
 type GameOptionProps = {type: string} & GameProps;
 
@@ -63,7 +64,7 @@ export function AthleteGamesList() {
 
 return (
 <Container>
-  <DefaultBackground>
+<ImageBackground source={backgroundImage} resizeMode='stretch' style={{flex:1}}>
   <Header title="Jogos do Athlete"/>
   { isLoading 
           ? <ActivityIndicator size="large" style={{paddingTop:"30%"}}/>
@@ -100,7 +101,7 @@ return (
               </Modal>
   </>
   }
-  </DefaultBackground>
+  </ImageBackground>
 </Container>
 )
 }

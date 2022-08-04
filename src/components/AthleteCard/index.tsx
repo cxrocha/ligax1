@@ -1,9 +1,6 @@
 
-import React, { useState, useEffect } from "react";
-import { RectButtonProps } from 'react-native-gesture-handler';
-
+import React from "react";
 import { AthleteProps } from "../../@types/interface";
-
 
 import { 
     Container,
@@ -21,12 +18,12 @@ type Props = { data: AthleteProps; } &
                onPressView?: ()=> void,  
                onPressDel?: ()=> void,  
                onPressEdit?: ()=> void,  
-            } & RectButtonProps
+            } 
 
-export function AthleteCard({data, options, onPressSel, onPressView, onPressDel, onPressEdit, ...rest} : Props) {
+export function AthleteCard({data, options, onPressSel, onPressView, onPressDel, onPressEdit} : Props) {
     return (
         <Container>
-            <ContainerSelect onPress={onPressSel} {...rest}>
+            <ContainerSelect onPress={onPressSel}>
                 <Name>{data.name} / {data.nickName}</Name>
             </ContainerSelect>
             {options && <OptionContainer>

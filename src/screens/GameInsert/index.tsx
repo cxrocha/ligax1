@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import { Alert, Modal } from 'react-native'
+import { Alert, ImageBackground, Modal } from 'react-native'
 
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { Button } from '../../components/Forms/Button';
 
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import firestore from "@react-native-firebase/firestore";
@@ -19,7 +18,6 @@ import {
 } from './styles';
 
 import { BackButton } from '../../controllers/BackButton';
-import { DefaultBackground } from '../../components/DefaultBackground';
 import { Header } from '../../components/Header';
 import { AthleteSelectButton } from '../../components/Forms/AthleteSelectButton';
 import { AthleteSelect } from '../AthleteSelect';
@@ -27,6 +25,8 @@ import { AthleteProps } from '../../@types/interface';
 import { GameInsertNavigationProps } from '../../@types/navigation';
 import { Input } from '../../components/Input';
 
+import backgroundImage from '../../assets/images/background.png';
+import { ButtonConfirm } from '../../components/ButtonConfirm';
 
 export function GameInsert() {
     const navigation = useNavigation();
@@ -57,7 +57,7 @@ export function GameInsert() {
     .finally(()=>navigation.goBack())
     }
 
-    function handleGameEdit(form: FormData) {
+    function handleGameEdit() {
         firestore().collection('games').doc(id).update({
           etapa: etapa,
           athlete1: athlete1,
@@ -72,7 +72,7 @@ export function GameInsert() {
         .finally(()=>navigation.goBack())
     }
 
-    function handleGameAdd(form: FormData) {
+    function handleGameAdd() {
         if(!formAthlete1) return Alert.alert('Selecione o primeiro atleta');
         if(!formAthlete2) return Alert.alert('Selecione o primeiro atleta');
         firestore().collection('games')
@@ -103,7 +103,7 @@ export function GameInsert() {
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
         <Container>
-          <DefaultBackground>
+        <ImageBackground source={backgroundImage} resizeMode='stretch' style={{flex:1}}>
             <BackBar>
                 <BackButton title="Voltar" icon="arrow-back" onPress={() => handleGoBack()} />
             </BackBar>
@@ -166,12 +166,12 @@ export function GameInsert() {
                     />
                     </SetContainer>  
                 </ResultContainer>
-                <Button 
+                <ButtonConfirm
                     title = { type=='Add' ? 'Gravar' 
                             : type=='Edit' ? 'Aterar' 
                             : type=='View' ? 'Fechar' 
                             : 'Apagar'}
-                    onPress = { type=='Add' ? handleGameAdd
+                    onPress = { type=='Add'  ? handleGameAdd
                               : type=='Edit' ? handleGameEdit
                               : type=='View' ? handleGoBack
                               : handleGameDel }
@@ -201,7 +201,7 @@ export function GameInsert() {
               />
           </Modal>
 
-            </DefaultBackground>
+            </ImageBackground>
         </Container>
         </GestureHandlerRootView>
     )

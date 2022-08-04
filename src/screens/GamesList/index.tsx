@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, Modal } from 'react-native';
+import { ActivityIndicator, FlatList, ImageBackground, Modal } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 
-import { DefaultBackground } from '../../components/DefaultBackground';
 import { Header } from '../../components/Header';
 import { EtapaSelectButton } from '../../components/Forms/EtapaSelectButton';
-import { Button } from '../../components/Forms/Button';
 import { GameCard } from '../../components/GameCard';
 import { GameProps, EtapaProps } from '../../../src/@types/interface';
 
@@ -16,7 +14,11 @@ import { getBottomSpace } from 'react-native-iphone-x-helper';
 import { useNavigation } from '@react-navigation/native';
 import { GameInsertNavigationProps } from '../../@types/navigation';
 
+import backgroundImage from '../../assets/images/background.png';
+import { ButtonConfirm } from '../../components/ButtonConfirm';
+
 type GameOptionProps = {type: string} & GameProps;
+
 
 export function GamesList() {
   const [etapaSel, setEtapaSel] = useState<EtapaProps>({ sDate: '', title: '', isOpen:true});
@@ -76,51 +78,47 @@ export function GamesList() {
 
 return (
 <Container>
-  <DefaultBackground>
-  <Header title="Lista de Jogos"/>
-  { isLoading 
-          ? <ActivityIndicator size="large" style={{paddingTop:"30%"}}/>
-          : <>
-              <EtapaSelectButton 
-                title={etapaSel.title}
-                onPress={handleOpenSelectEtapaModal}
+  <ImageBackground source={backgroundImage} resizeMode='stretch' style={{flex:1}}>
+    <Header title="Lista de Jogos"/>
+    <EtapaSelectButton 
+      title={etapaSel.title}
+      onPress={handleOpenSelectEtapaModal}
+    />
+    { isLoading 
+      ? <ActivityIndicator size="large" style={{paddingTop:"30%"}}/>
+      : matchList.length > 0
+        ? <FlatList
+            data={matchList}
+            renderItem={({ item }) => 
+              <GameCard options = {true}
+                data = {item}
+                onPressSel  ={() => handleCallGame({type: "View", ...item})}
+                onPressDel  ={() => handleCallGame( {type: "Del" , ...item})}
+                onPressEdit ={() => handleCallGame({type: "Edit", ...item})}
               />
-
-              <FlatList
-                data={matchList}
-                renderItem={({ item }) => 
-                  <GameCard options = {true}
-                    data = {item}
-                    onPressSel  ={() => handleCallGame({type: "View", ...item})}
-                    onPressDel  ={() => handleCallGame( {type: "Del" , ...item})}
-                    onPressEdit ={() => handleCallGame({type: "Edit", ...item})}
-                  />
-                }
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle = {{
-                    paddingBottom: getBottomSpace(),
-                }}
-              />
-
-              <Button 
-                style={{marginTop: 10}}
-                title='Incluir Jogo'
-                onPress={() => handleCallGameNew("Add")}
-              />
-
-              <Modal 
-                visible={etapaModalOpen} 
-                transparent={true}
-                animationType="slide">
-                  <EtapaSelect 
-                      etapa = {etapaSel}
-                      setEtapa = {setEtapaSel}
-                      closeSelectEtapa = {handleCloseSelectEtapaModal}
-                  />
-              </Modal>
-  </>
-  }
-  </DefaultBackground>
+            }
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle = {{
+                paddingBottom: getBottomSpace(),
+            }}
+          />
+        : <></>
+    }
+    <ButtonConfirm
+      title='Incluir Jogo'
+      onPress={() => handleCallGameNew("Add")}
+    />
+    <Modal 
+      visible={etapaModalOpen} 
+      transparent={true}
+      animationType="slide">
+        <EtapaSelect 
+            etapa = {etapaSel}
+            setEtapa = {setEtapaSel}
+            closeSelectEtapa = {handleCloseSelectEtapaModal}
+        />
+    </Modal>
+  </ImageBackground>
 </Container>
 )
 }

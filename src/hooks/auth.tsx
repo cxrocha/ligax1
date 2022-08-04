@@ -136,7 +136,7 @@ function AuthProvider({ children }: AuthProviderProps) {
                 locale: userInfo.locale,
                 verified_email: userInfo.verified_email
             };
-//            console.log("userLogged: ", userLogged);
+            console.log("userLogged: ", userLogged);
             setUser(userLogged);
             await AsyncStorage.setItem(
                 USER_LOCAL_STORAGE_USER_KEY,

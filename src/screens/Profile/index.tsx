@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
+import { ButtonConfirm } from '../../components/ButtonConfirm';
 
 // import { Container } from './styles';
 
@@ -13,7 +14,7 @@ export function Profile() {
     <TextInput 
       placeholder="Sobrenome"
     />
-    <Button 
+    <ButtonConfirm
       title="Salvar"
       onPress={()=>{}} />
   </View>

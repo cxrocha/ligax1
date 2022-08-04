@@ -1,6 +1,5 @@
 import styled from "styled-components/native";
 import { RFValue } from "react-native-responsive-fontsize";
-import {RectButton} from 'react-native-gesture-handler';
 
 type  ContainerProps = {
     isActive: boolean,
@@ -10,7 +9,7 @@ interface TitleProps {
     isActive: boolean;
 }
   
-export const Container = styled(RectButton) <ContainerProps>`
+export const Container = styled.TouchableOpacity<ContainerProps>`
     background-color: ${({theme, isActive}) => isActive ? theme.COLORS.BACKGROUND_DARK : theme.COLORS.BACKGROUND_LIGHT};
     width: ${RFValue(150)}px;
     height: ${RFValue(30)}px;

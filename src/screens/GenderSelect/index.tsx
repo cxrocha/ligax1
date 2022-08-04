@@ -2,9 +2,6 @@ import React from 'react';
 import { FlatList } from 'react-native';
 import { genders } from '../../utils/genders';
 
-import { Button } from '../../components/Forms/Button';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-
 import { 
     Container,
     Header,
@@ -16,6 +13,7 @@ import {
     Footer,
 
  } from './styles';
+import { ButtonConfirm } from '../../components/ButtonConfirm';
 
 interface Gender {
     key: string,
@@ -39,30 +37,27 @@ export function GenderSelect({
     }
     return(
         <Container>
-
-            <FlatList
-                data={genders}
-                style={{flex:1, width: '100%'}}
-                keyExtractor={(item)=>item.key}
-                renderItem={({ item}) => (
-                    <Gender 
-                        onPress = {() =>handleCategorySelect(item)}
-                        isActive={gender.key === item.key}    
-                    >
-                        <Icon name={item.icon} />
-                        <Name>{item.name}</Name>
-                    </Gender>
-                )}
-                ItemSeparatorComponent={()=> <Separator/>}
+          <FlatList
+            data={genders}
+            style={{flex:1, width: '100%'}}
+            keyExtractor={(item)=>item.key}
+            renderItem={({ item}) => (
+                <Gender 
+                    onPress = {() =>handleCategorySelect(item)}
+                    isActive={gender.key === item.key}    
+                >
+                    <Icon name={item.icon} />
+                    <Name>{item.name}</Name>
+                </Gender>
+            )}
+            ItemSeparatorComponent={()=> <Separator/>}
+          />
+          <Footer>
+            <ButtonConfirm
+                title="Selecionar"
+                onPress={closeSelectGender}
             />
-            <Footer>
-                <GestureHandlerRootView>
-                    <Button 
-                        title="Selecionar"
-                        onPress={closeSelectGender}
-                    />
-                </GestureHandlerRootView>
-            </Footer>
+          </Footer>
         </Container>
     )
 

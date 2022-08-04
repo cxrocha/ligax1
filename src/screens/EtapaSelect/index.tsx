@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { FlatList, Alert, ActivityIndicator } from 'react-native';
+import { FlatList, Alert, ActivityIndicator, ImageBackground } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Search } from '../../components/Search';
@@ -14,7 +14,8 @@ import {
   MenuItemsNumber,
   Header
 } from './styles';
-import { DefaultBackground } from '../../components/DefaultBackground';
+
+import backgroundImage from '../../assets/images/background.png';
 
 interface EtapaProps {
   sDate: string,
@@ -82,7 +83,7 @@ export function EtapaSelect({
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Container>
-      <DefaultBackground>
+      <ImageBackground source={backgroundImage} resizeMode='stretch' style={{flex:1}}>
         <Header>
           <BackButton title="" icon="arrow-back" onPress={() => closeSelectEtapa()} />
           <Search
@@ -118,7 +119,7 @@ export function EtapaSelect({
                 />
               </>
         }  
-        </DefaultBackground>
+        </ImageBackground>
       </Container>
     </GestureHandlerRootView>
   )

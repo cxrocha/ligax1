@@ -8,13 +8,14 @@ import { Container, Title } from './styles';
 type Props = TouchableOpacityProps & {
   title: string;
   icon: keyof typeof MaterialIcons.glyphMap;
+  onPress: ()=>void;
 }
 
-export function FooterButton({ title, icon, ...rest }: Props) {
+export function FooterButton({ title, icon, onPress }: Props) {
   const theme = useTheme();
 
   return (
-    <Container {...rest}>
+    <Container onPress={onPress}>
       <MaterialIcons name={icon} size={24} color={theme.COLORS.TEXT_DARK} />
       <Title>{title}</Title>
     </Container>

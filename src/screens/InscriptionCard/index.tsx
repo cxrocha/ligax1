@@ -1,26 +1,27 @@
 import React, { useCallback, useState } from "react"
-import {Modal, Alert, View} from "react-native"
+import {Modal, Alert, View, ImageBackground} from "react-native"
 import firestore from '@react-native-firebase/firestore';
 import { useAuth } from '../../hooks/auth';
 
-import { DefaultBackground } from "../../components/DefaultBackground"
 import { Header } from "../../components/Header"
 import { EtapaSelectButton } from "../../components/Forms/EtapaSelectButton"
 import { EtapaSelect } from "../EtapaSelect"
 import { AthleteSelectButton } from "../../components/Forms/AthleteSelectButton"
 import { Container, Title } from "./styles"
 import { AthleteSelect } from "../AthleteSelect"
-import { Button } from "../../components/Forms/Button"
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { useFocusEffect, useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { ButtonConfirm } from "../../components/ButtonConfirm";
 
-type AthleteProps = {key: string, name: string, nickName: string, eMail: string, bornDate: string, gendler: string};
+import backgroundImage from '../../assets/images/background.png';
+
+type AthleteProps = {id: string, name: string, nickName: string, eMail: string, bornDate: string, gendler: string};
 type EtapaProps = {sDate: string, title: string, isOpen:boolean};
 
 export function InscriptionCard() {
   const[etapaModalOpen, setEtapaModalOpen] = useState(false);
   const [etapa, setEtapa] = useState<EtapaProps>({ sDate: '', title: '', isOpen:true});
-  const [athlete, setAthlete] = useState<AthleteProps>({ key: '', name: '', nickName: '', eMail: '', bornDate: '', gendler: 'M' });
+  const [athlete, setAthlete] = useState<AthleteProps>({ id: '', name: '', nickName: '', eMail: '', bornDate: '', gendler: 'M' });
   const[athleteModalOpen, setAthleteModalOpen] = useState(false);
 
   const { user } = useAuth();
@@ -54,7 +55,7 @@ function handleInsertRegister(etapa: EtapaProps, athlete: AthleteProps) {
     etapa,
     athlete,
   })
-  .then(() => { setAthlete({ key: '', name: '', nickName: '', eMail: '', bornDate: '', gendler: '' }),
+  .then(() => { setAthlete({ id: '', name: '', nickName: '', eMail: '', bornDate: '', gendler: '' }),
                 setEtapa({ sDate: '', title: '', isOpen:true}) })  
   .catch(() => {
     Alert.alert('Ranking', 'Não foi possível registrar a inscrição.');
@@ -66,7 +67,7 @@ function handleInsertRegister(etapa: EtapaProps, athlete: AthleteProps) {
 return (
   <GestureHandlerRootView style={{ flex: 1 }}>
     <Container>
-      <DefaultBackground>
+    <ImageBackground source={backgroundImage} resizeMode='stretch' style={{flex:1}}>          
           <Header title="Inscrição Para Etapa"/>
           <EtapaSelectButton 
             title={etapa.title}
@@ -77,7 +78,7 @@ return (
             onPress={handleOpenSelectAthleteModal}
           />
           <View style={{height:20}}></View>
-          <Button 
+          <ButtonConfirm
             title='Inscrever'
             onPress = { () => handleInsertRegister(etapa, athlete) }/> 
 
@@ -102,7 +103,7 @@ return (
                   closeSelectAthlete = {handleCloseSelectAthleteModal}
               />
           </Modal>
-      </DefaultBackground>
+      </ImageBackground>
     </Container>
   </GestureHandlerRootView>
 )

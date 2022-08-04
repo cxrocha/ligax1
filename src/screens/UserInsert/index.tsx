@@ -1,11 +1,13 @@
 import React from 'react';
-import { KeyboardAvoidingView, Platform } from 'react-native';
+import { ImageBackground, KeyboardAvoidingView, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from 'styled-components/native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { AccountForm } from '../../components/Forms/AccountForm';
 import { Container, Content, SubTitle, BackButton, BackText } from './styles';
-import { DefaultBackground } from '../../components/DefaultBackground';
+
+import backgroundImage from '../../assets/images/background.png';
+
 
 export function UserInsert() {
   const theme = useTheme();
@@ -13,7 +15,7 @@ export function UserInsert() {
 
   return (
     <Container>
-      <DefaultBackground>
+      <ImageBackground source={backgroundImage} resizeMode='stretch' style={{flex:1}}>          
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
           <Content>
 
@@ -26,7 +28,7 @@ export function UserInsert() {
             </BackButton>
           </Content>
         </KeyboardAvoidingView>
-      </DefaultBackground>
+      </ImageBackground>
     </Container>
   );
 }

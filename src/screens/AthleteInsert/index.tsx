@@ -1,14 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import { 
     Keyboard,
-    Alert} from 'react-native'
+    Alert,
+    ImageBackground} from 'react-native'
 
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { InputForm } from '../../components/Forms/InputForm';
-import { Button } from '../../components/Forms/Button';
 
 import { TouchableWithoutFeedback, GestureHandlerRootView } from 'react-native-gesture-handler';
 import firestore from "@react-native-firebase/firestore";
@@ -24,11 +24,11 @@ import {
 
 import { GenderButton } from '../../components/Forms/GenderButton';
 import { BackButton } from '../../controllers/BackButton';
-import { DefaultBackground } from '../../components/DefaultBackground';
 import { Header } from '../../components/Header';
 import { AthleteInsertNavigationProps } from '../../@types/navigation';
 
-
+import backgroundImage from '../../assets/images/background.png';
+import { ButtonConfirm } from '../../components/ButtonConfirm';
 
 interface FormData {
     name: string;
@@ -118,7 +118,7 @@ export function AthleteInsert() {
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
         <Container>
-          <DefaultBackground>
+          <ImageBackground source={backgroundImage} resizeMode='stretch' style={{flex:1}}>
             <BackBar>
                 <BackButton title="Voltar" icon="arrow-back" onPress={() => handleGoBack()} />
             </BackBar>
@@ -181,7 +181,7 @@ export function AthleteInsert() {
                     </GestureHandlerRootView>
 
                 </Fields>
-                <Button 
+                <ButtonConfirm
                     title = { type=='Add' ? 'Gravar' 
                             : type=='Edit' ? 'Aterar' 
                             : type=='View' ? 'Fechar' 
@@ -192,7 +192,7 @@ export function AthleteInsert() {
                               : handleAthleteDel }
                 />
             </Form>
-            </DefaultBackground>
+            </ImageBackground>
         </Container>
         </GestureHandlerRootView>
     )

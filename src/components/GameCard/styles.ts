@@ -1,6 +1,5 @@
 import styled from "styled-components/native";
 import { RFValue } from "react-native-responsive-fontsize";
-import { RectButton } from 'react-native-gesture-handler';
 import { Feather } from '@expo/vector-icons';
 
 
@@ -8,12 +7,12 @@ export const Container = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin: 4px;
+  margin: 8px;
   border-radius: 8px;
   border-width: 1px;
 `;
 
-export const MatchContainer = styled(RectButton)`
+export const MatchContainer = styled.TouchableOpacity`
     flex-direction: row;
     justify-content: space-between;
     width: 90%;
@@ -50,7 +49,7 @@ export const OptionContainer = styled.View`
     flex-direction: column;
 `;
 
-export const ContainerSelect = styled(RectButton)`
+export const ContainerSelect = styled.TouchableOpacity`
     padding: 4px 4px;
 `;
 

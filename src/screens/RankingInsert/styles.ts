@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components/native';
-import { Button } from '../../components/Button';
 import { LinearGradient } from 'expo-linear-gradient';
 import { getStatusBarHeight, getBottomSpace } from 'react-native-iphone-x-helper';
 import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
@@ -45,10 +44,13 @@ export const GreetingText = styled.Text`
 `;
 
 export const ButtonContainer = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  margin: 18px;
+padding: 10px;
 `;
 
-
+export const BackBar = styled.View`    
+  align-items: flex-start;
+  margin-top: ${getStatusBarHeight()}px;
+  background-color: ${({theme}) => theme.COLORS.BACKGROUND_DARK};
+  height: ${RFValue(40)}px;
+`;
 

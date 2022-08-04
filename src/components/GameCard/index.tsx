@@ -34,17 +34,17 @@ export function GameCard({data, options, onPressSel, onPressDel, onPressEdit, ..
                 <PlayerName>{data.athlete2.nickName}</PlayerName>
               </PlayersContainer>
               <ContainerSets>
-              {!((data.set1.player1==0) && (data.set1.player2==0)) &&
+              {!((data.set1.player1=='') && (data.set1.player2=='')) &&
                   <ContainerSet>
                     <TextSet>{data.set1.player1}</TextSet> 
                     <TextSet>{data.set1.player2}</TextSet> 
                   </ContainerSet> }
-                {!((data.set2.player1==0) && (data.set2.player2==0)) &&
+                {!((data.set2.player1=='') && (data.set2.player2=='')) &&
                   <ContainerSet>
                     <TextSet>{data.set2.player1}</TextSet> 
                     <TextSet>{data.set2.player2}</TextSet> 
                   </ContainerSet> }
-                {!((data.set3.player1==0) && (data.set3.player2==0)) &&
+                {!((data.set3.player1=='') && (data.set3.player2=='')) &&
                   <ContainerSet>
                     <TextSet>{data.set3.player1}</TextSet> 
                     <TextSet>{data.set3.player2}</TextSet> 

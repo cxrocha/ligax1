@@ -24,6 +24,7 @@ export declare global {
       userInsert: undefined;
       gameList: undefined;
       gameInsert: GameInsertNavigationProps;
+      athleteDetails: AthleteProps;
     }
   }
 }

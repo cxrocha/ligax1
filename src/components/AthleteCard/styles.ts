@@ -1,9 +1,6 @@
 import styled from "styled-components/native";
 import { RFValue } from "react-native-responsive-fontsize";
-import { RectButton } from 'react-native-gesture-handler';
 import { Feather } from '@expo/vector-icons';
-
-
 
 export const Container = styled.View`
     flex-direction: row;
@@ -11,7 +8,7 @@ export const Container = styled.View`
     width: 80%;
 `;
 
-export const ContainerSelect = styled(RectButton)`
+export const ContainerSelect = styled.TouchableOpacity`
     width: 88%;
     padding: 0px 2px;
 `;

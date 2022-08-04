@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { ActivityIndicator, Alert, KeyboardAvoidingView, Platform } from 'react-native';
+import { ActivityIndicator, Alert, ImageBackground, KeyboardAvoidingView, Platform } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { useAuth } from '../../hooks/auth';
 import { Input } from '../../components/Input';
-import { Button } from '../../components/Button';
 
 import {
   Container,
@@ -15,13 +14,15 @@ import {
   FooterWrapper,
 } from './styles';
 import { FooterButton } from '../../controllers/FooterButton';
-import { DefaultBackground } from '../../components/DefaultBackground';
 import Brasao from '../../assets/images/Brasao.png'
 import { BackButton } from '../../controllers/BackButton';
 import { useTheme } from 'styled-components/native';
 import { SignInSocialButton } from '../../components/SignInSocialButton';
 import GoogleSvg from '../../assets/google.svg';
 import AppleSvg from '../../assets/apple.svg';
+
+import backgroundImage from '../../assets/images/background.png';
+import { ButtonConfirm } from '../../components/ButtonConfirm';
 
 export function SignIn() {
   const [email, setEmail] = useState('');
@@ -46,7 +47,11 @@ export function SignIn() {
   function handleForgotPassword() {
     forgotPassword(email);
   }
-  
+
+  function handleCallUserRegister() {
+    navigation.navigate('userRegister');
+  }
+
 // Login de autenticação com o Google  
   async function handleSignInWithGoogle() {
       setIsLoading(true);
@@ -77,7 +82,7 @@ export function SignIn() {
 
   return (
     <Container>
-      <DefaultBackground>
+      <ImageBackground source={backgroundImage} resizeMode='stretch' style={{flex:1}}>          
         <BackBar>
           <BackButton title="Voltar" icon="arrow-back" onPress={() => navigation.goBack()} />
         </BackBar>
@@ -101,15 +106,14 @@ export function SignIn() {
                 onChangeText={setPassword}
               />
 
-              <Button
+              <ButtonConfirm
                 title="Entrar"
-                type="cancel"
                 onPress={handleSignIn}
                 isLoading={isLogging}
               />
 
               <Footer>
-                <FooterButton title="Criar conta" icon="person-add" onPress={() => navigation.navigate('userRegister')} />
+                <FooterButton title="Criar conta" icon="person-add" onPress={handleCallUserRegister} />
                 <FooterButton title="Esqueci senha" icon="email" onPress={handleForgotPassword} />
               </Footer>
               <FooterWrapper>
@@ -137,7 +141,7 @@ export function SignIn() {
 
           </Content>
         </KeyboardAvoidingView>
-      </DefaultBackground>
+      </ImageBackground>
     </Container>
   );
 }

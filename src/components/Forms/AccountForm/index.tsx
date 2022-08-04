@@ -3,9 +3,9 @@ import { Alert } from 'react-native';
 
 import auth from '@react-native-firebase/auth';
 
-import { Button } from '../../Button';
 import { Input } from '../../Input';
 import { Form, Title } from './styles';
+import { ButtonConfirm } from '../../ButtonConfirm';
 
 export function AccountForm() {
   const [email, setEmail] = useState('');
@@ -26,7 +26,7 @@ export function AccountForm() {
       <Title>Cadastrar</Title>
       <Input placeholder="E-mail" onChangeText={setEmail} />
       <Input placeholder="Senha" secureTextEntry onChangeText={setPassword} />
-      <Button title="Cadastrar" isLoading={isLoading} onPress={handleNewAccount} />
+      <ButtonConfirm title="Cadastrar" isLoading={isLoading} onPress={handleNewAccount} />
     </Form>
   );
 }
